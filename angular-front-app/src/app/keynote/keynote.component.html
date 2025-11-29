@@ -1,0 +1,116 @@
+<div class="container mt-4">
+
+  <!-- Card: Add New Keynote -->
+  <div class="card mb-4">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">Add New Keynote</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addKeynote()">
+        <div class="row mb-3">
+          <div class="col">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control"
+                   [(ngModel)]="newKeynote.firstName" name="firstName" required>
+          </div>
+          <div class="col">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control"
+                   [(ngModel)]="newKeynote.lastName" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control"
+                   [(ngModel)]="newKeynote.email" name="email" required>
+          </div>
+          <div class="col">
+            <label class="form-label">Function / Title</label>
+            <input type="text" class="form-control"
+                   [(ngModel)]="newKeynote.functionTitle" name="functionTitle" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+          Add Keynote
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Card: Keynotes Table -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Keynotes</h4>
+    </div>
+
+    <div class="card-body">
+
+      <table class="table table-striped table-bordered" *ngIf="keynotes && keynotes.length > 0; else noData">
+        <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Function / Title</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let element of keynotes">
+          <td>{{ element.id }}</td>
+          <td>{{ element.firstName }}</td>
+          <td>{{ element.lastName }}</td>
+          <td>{{ element.email }}</td>
+          <td>{{ element.functionTitle }}</td>
+          <td>
+            <button
+              class="btn btn-danger btn-sm me-2"
+              (click)="deleteKeynote(element.id)">
+              Delete
+            </button>
+            <button class="btn btn-warning btn-sm"
+                    (click)="openUpdateFunctionForm(element)">
+              Update Function
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noData>
+        <p class="text-muted mb-0">No keynotes found.</p>
+      </ng-template>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Floating card: Update function/title -->
+<div class="card p-3 shadow" *ngIf="showUpdateForm"
+     style="position: fixed; top: 20%; left: 35%; width: 30%; z-index: 1000; background: white;">
+
+  <h5 class="mb-3">Update Function for {{ selectedKeynote?.firstName }} {{ selectedKeynote?.lastName }}</h5>
+
+  <div class="mb-3">
+    <label class="form-label">New Function / Title</label>
+    <input type="text" class="form-control"
+           [(ngModel)]="updatedFunctionTitle">
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-secondary me-2"
+            (click)="closeUpdateForm()">Cancel</button>
+
+    <button class="btn btn-primary"
+            (click)="updateKeynoteFunction(selectedKeynote.id)">
+      Update
+    </button>
+  </div>
+
+</div>
