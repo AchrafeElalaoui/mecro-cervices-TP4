@@ -6,4 +6,6 @@ import {ConferencesComponent} from './conferences/conferences.component';
 export const routes: Routes = [
   {path :"keynotes",component: KeynoteComponent},
   { path: '', redirectTo: '/keynotes', pathMatch: 'full' },
+  { path: 'conferences/:id/reviews', component: ConferenceReviewsComponent },
+  { path: 'conferences', component: ConferencesComponent }
 ];

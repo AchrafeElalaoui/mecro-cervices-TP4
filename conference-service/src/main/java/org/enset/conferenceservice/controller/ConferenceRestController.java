@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/conferences")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ConferenceRestController {
 
     private final ConferenceService conferenceService;
@@ -75,4 +76,5 @@ public class ConferenceRestController {
         return conferenceService.getReviewsByConference(conferenceId);
     }
 }
+
 
